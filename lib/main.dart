@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'styles.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +20,12 @@ class MyApp extends StatelessWidget {
         ),
         
         body: SafeArea(
-          
+          child: Card(
+  elevation: 10,
+  shadowColor: Colors.black45,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(16),
+  ),
           
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -36,14 +43,39 @@ class MyApp extends StatelessWidget {
                   const Text('Email: rupakpandey431@gmail.com'),
                   const SizedBox(height: 8),
                   const Text('About Me: \n Technical student and a passinate learner, seeking to explore new things in tech and lern new skills', textAlign: TextAlign.center),
-                  Image.asset('assets/images/img1.jpeg', width: 200, height: 200, fit: BoxFit.cover),                
-                
+                  
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+  onPressed: openWebsite,
+  child: const Text('Visit My Website'),
+),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+  onPressed: opengithub,
+  child: const Text('Visit My GitHub'),
+),
                 ],
               ),
             ),
           ),
-        
+        )
       ),
     );
+  }
+}
+
+void openWebsite() async {
+  final Uri url = Uri.parse('https://pandeyrupak.com.np');
+
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    throw 'Could not launch $url';
+  }
+}
+
+void opengithub() async {
+  final Uri url = Uri.parse('https://github.com/rupak321');
+
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    throw 'Could not launch $url';
   }
 }
